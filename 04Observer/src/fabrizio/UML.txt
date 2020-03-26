@@ -1,0 +1,45 @@
+Utente (ctor nome) impl Observer
+nome ; get ; set;
+update (obs Observable) -> syso () nome +" la scarpa"+ ((Scarpa) obs).getMarca())
+
+
+Scarpa ext Observable ( avaiable, marca)
+avaiable; get ; set-> if(avaiable) {notifyObservers(this);}
+marca; get ; set;
+
+interface Observer -> update(Observer obs);
+
+Observable
+observers = new ArrayList<Observer>();
+subscribe(Observer o){observers.add(o)};	
+unsubscribe(Observer o) {observers.remove(o);}
+notifyObservers(Observable obs) {
+		for (Observer o: observers) {
+			o.update(obs);
+		}
+	}
+
+main 
+Scarpa s1 = new Scarpa(true,"m1");
+Scarpa s2 = new Scarpa(true,"m2");
+Utente u1 = new Utente("u1");
+Utente u2 = new Utente("u2");
+Utente u3 = new Utente("u3");
+//La scarpa s1 è osservabile da u1
+s1.subscribe(u1);
+s1.subscribe(u3);
+s2.subscribe(u2);
+// setto s1 come disponibile ed esegue il notifyObservers(s1) che per gli observers sottoscritti
+// ovvero u1 ed u3 esegue 
+//u1.update(s1)
+// nome=u1.nome
+// scarpa = ((Scarpa) obs) // utilizzo il metodo get marca dell'observable castato come Scarpa
+// syso () nome +" la scarpa"+ ((Scarpa) obs).getMarca())
+//u3.update(s1)
+//
+s1.setAvaiable(true);
+s2.setAvaiable(true);
+
+
+
+
